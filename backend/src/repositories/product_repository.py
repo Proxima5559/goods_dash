@@ -89,3 +89,8 @@ class ProductRepository(BaseRepository[Product]):
         )
         result = await self.session.execute(stmt)
         return result.one()
+    
+    async def get_distinct_categories(self) -> list[str]:
+        stmt = select(Product.category).distinct().order_by(Product.category)
+        result = await self.session.execute(stmt)
+        return list(result.scalars().all())

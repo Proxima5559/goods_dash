@@ -21,8 +21,8 @@ class UserService:
         page_size: int,
         country: str | None = None,
         vip: bool | None = None,
-        created_after: datetime.datetime | None = None,
-        created_before: datetime.datetime | None = None,
+        created_after: datetime | None = None,
+        created_before: datetime | None = None,
         search: str | None = None,
         sort: UserSortField = UserSortField.CREATED_AT,
         order: SortDirection = SortDirection.DESC,
@@ -85,3 +85,5 @@ class UserService:
             average_order=to_money(average),
             orders=user.orders,
         )
+    async def get_countries(self) -> list[str]:
+        return await self.user_repository.get_distinct_countries()

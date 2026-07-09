@@ -68,3 +68,5 @@ class ProductService:
             revenue_generated=Decimal(revenue) if revenue else Decimal("0.00"),
             average_rating=product.rating
         )
+    async def get_categories(self) -> list[str]:
+        return await self.repository.get_distinct_categories()
