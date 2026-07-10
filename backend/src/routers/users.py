@@ -37,6 +37,10 @@ async def get_users(
         order=order,
     )
 
+@router.get("/countries", response_model=list[str])
+async def get_user_countries(user_service: UserService = Depends(get_user_service)):
+    return await user_service.get_countries()
+
 @router.get("/{user_id}", response_model=UserDetailsResponse)
 async def get_user(user_id: str, user_service: UserService = Depends(get_user_service)):
     return await user_service.get_user(user_id)

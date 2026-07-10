@@ -23,14 +23,16 @@ router = APIRouter(
 
 @router.get("/", response_model=PaginatedResponse[ProductTableResponse])
 async def get_products(pagination: Pagination = Depends(pagination_params), filters: ProductFilter = Depends(), service: ProductService = Depends(get_product_service),):
-
     return await service.get_products(
         pagination=pagination,
         filters=filters,
     )
 
+@router.get("/categories", response_model=list[str])
+async def get_product_categories(service: ProductService = Depends(get_product_service)):
+    return await service.get_categories()
 
 @router.get("/{product_id}", response_model=ProductDetailResponse)
 async def get_product(product_id: UUID, service: ProductService = Depends(get_product_service)):
-
     return await service.get_product(product_id)
+
